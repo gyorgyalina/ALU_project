@@ -71,6 +71,7 @@ set_property parent.project_path D:/laborator/ALU_project/ALU_project.xpr [curre
 set_property XPM_LIBRARIES {XPM_CDC XPM_MEMORY} [current_project]
 set_property default_lib xil_defaultlib [current_project]
 set_property target_language Verilog [current_project]
+set_property board_part_repo_paths {D:/laborator/laborator9/Lab9/Hardware/boards} [current_project]
 set_property board_part digilentinc.com:zybo-z7-20:part0:1.2 [current_project]
 update_ip_catalog
 set_property ip_output_repo d:/laborator/ALU_project/ALU_project.cache/ip [current_project]
@@ -80,10 +81,11 @@ OPTRACE "Adding files" START { }
 read_vhdl -library xil_defaultlib {
   D:/laborator/ALU_project/ALU_project.srcs/sources_1/new/booth_multiplier.vhd
   D:/laborator/ALU_project/ALU_project.srcs/sources_1/new/csa.vhd
+  D:/laborator/ALU_project/ALU_project.srcs/sources_1/new/divider.vhd
   D:/laborator/ALU_project/ALU_project.srcs/sources_1/new/rca.vhd
   D:/laborator/ALU_project/ALU_project.srcs/sources_1/new/ALU.vhd
 }
-read_ip -quiet d:/laborator/ALU_project/ALU_project.srcs/sources_1/bd/design_alu/ip/design_alu_ALU_0_1/design_alu_ALU_0_1.xci
+read_ip -quiet D:/laborator/ALU_project/ALU_project.srcs/sources_1/bd/design_alu/ip/design_alu_ALU_0_1/design_alu_ALU_0_1.xci
 
 OPTRACE "Adding files" END { }
 # Mark all dcp files as not used in implementation to prevent them from being

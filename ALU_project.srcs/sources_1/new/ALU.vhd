@@ -7,32 +7,41 @@ entity ALU is
     N : integer := 8 
   );
   port(
+    clk    : in std_logic;
+    reset  : in std_logic;
     A      : in  std_logic_vector(N-1 downto 0);
     B      : in  std_logic_vector(N-1 downto 0);
-    opcode : in  std_logic_vector(1 downto 0);       
+    opcode : in  std_logic_vector(1 downto 0);        
     RESULT : out std_logic_vector(2*N-1 downto 0)    
   );
 end ALU;
 
 architecture Behavioral of ALU is
 
-    signal A_s, B_s : signed(N-1 downto 0);
-    signal SUM_out  : std_logic_vector(N downto 0);
-    signal mult_out : std_logic_vector(2*N-1 downto 0); 
-    signal div_out  : signed(N-1 downto 0);
+    signal B_inv     : std_logic_vector(N-1 downto 0);
+    signal C_in_csa  : std_logic;
+    signal SUM_out   : std_logic_vector(N downto 0); -- N+1 biti
+    
+    signal mult_out  : std_logic_vector(2*N-1 downto 0);  
+    signal div_out   : std_logic_vector(N-1 downto 0);
 
-    signal B_mod : std_logic_vector(N-1 downto 0);
+    signal div_busy  : std_logic;
+    signal div_ready : std_logic;
+    signal start_div : std_logic; 
+    
+    signal result_reg : std_logic_vector(2*N-1 downto 0);
+
 
     component csa
       generic(
-        N : integer := 16;
+        N    : integer := 16;
         BLOC : integer := 4
       );
       port(
-        A     : in  std_logic_vector(N-1 downto 0);
-        B     : in  std_logic_vector(N-1 downto 0);
-        C_in  : in  std_logic;
-        SUM   : out std_logic_vector(N downto 0)
+        A    : in  std_logic_vector(N-1 downto 0);
+        B    : in  std_logic_vector(N-1 downto 0);
+        C_in : in  std_logic;
+        SUM  : out std_logic_vector(N downto 0)
       );
     end component;
 
@@ -45,22 +54,41 @@ architecture Behavioral of ALU is
         );
     end component;
 
+    component divider
+        generic(N:integer :=8);
+        port(
+            clk   : in std_logic;
+            reset : in std_logic;
+            start : in std_logic;
+            A     : in std_logic_vector(N-1 downto 0);
+            B     : in std_logic_vector(N-1 downto 0);
+            Q     : out std_logic_vector(N-1 downto 0);
+            R     : out std_logic_vector(N-1 downto 0);
+            busy  : out std_logic;
+            ready : out std_logic
+        );
+    end component;
+
 begin
-
-    A_s <= signed(A);
-    B_s <= signed(B);
-
-    B_mod <= B when opcode="00" else std_logic_vector(-B_s); 
-
+    
+    
+    
+    C_in_csa <= '1' when opcode = "01" else '0'; 
+    
+    with opcode select
+        B_inv <= B        when "00", -- ADD: B
+                 not B    when "01", -- SUB: NOT B
+                 B        when others;
+    
     csa_inst : csa
       generic map(N => N, BLOC => 4)
       port map(
         A    => A,
-        B    => B_mod,
-        C_in => '0',
+        B    => B_inv,
+        C_in => C_in_csa, 
         SUM  => SUM_out
       );
-
+    
     mult_inst : booth_multiplier
       generic map(x => N, y => N)
       port map(
@@ -69,48 +97,68 @@ begin
         result => mult_out
       );
 
-    process(A_s, B_s)
-        variable dividend : signed(N-1 downto 0);
-        variable divisor  : signed(N-1 downto 0);
-        variable quotient : signed(N-1 downto 0);
-        variable remainder: signed(N-1 downto 0);
+    process(clk)
+      variable opcode_prev : std_logic_vector(1 downto 0) := (others => '0');
     begin
-        if B_s /= 0 then
-            dividend := A_s;
-            divisor  := B_s;
-            quotient := (others => '0');
-            remainder:= (others => '0');
+        if rising_edge(clk) then
+            if reset = '1' then
+                start_div <= '0';
+                opcode_prev := (others => '0');
+            elsif opcode = "11" and opcode_prev /= "11" then 
+                start_div <= '1';
+            else
+                start_div <= '0';
+            end if;
+            opcode_prev := opcode;
+        end if;
+    end process;
+    
+    divider_inst: divider
+      generic map(N => N)
+      port map(
+        clk   => clk,
+        reset => reset,
+        start => start_div, 
+        A     => A,
+        B     => B,
+        Q     => div_out,
+        R     => open,
+        busy  => div_busy,
+        ready => div_ready
+      );
 
-            for i in N-1 downto 0 loop
-                remainder := remainder(N-2 downto 0) & dividend(i);
-                if remainder >= divisor then
-                    remainder := remainder - divisor;
-                    quotient(i) := '1';
-                else
-                    quotient(i) := '0';
-                end if;
-            end loop;
+    process(clk, reset)
+    begin
+        if reset='1' then
+            result_reg <= (others=>'0');
 
-            div_out <= quotient;
-        else
-            div_out <= (others => '0'); 
+        elsif rising_edge(clk) then
+
+            case opcode is
+
+                when "00" | "01" =>  -- ADD / SUB
+                    result_reg <= std_logic_vector(
+                                      resize(signed(SUM_out), 2*N)
+                                    );
+
+                when "10" =>  -- MUL
+                    result_reg <= mult_out;
+
+                when "11" =>  -- DIV
+                    if div_ready = '1' then
+                        result_reg <= std_logic_vector(
+                                          resize(unsigned(div_out), 2*N)
+                                        );
+                    end if;
+
+                when others =>
+                    result_reg <= (others=>'0');
+
+            end case;
+
         end if;
     end process;
 
-    process(SUM_out, mult_out, div_out)
-    begin
-        case opcode is
-            when "00" =>  -- adunare
-                RESULT <= std_logic_vector(resize(signed(SUM_out), 2*N)); 
-            when "01" =>  -- scădere
-                RESULT <= std_logic_vector(resize(signed(SUM_out), 2*N));
-            when "10" =>  -- multiplicare
-                RESULT <= mult_out;
-            when "11" =>  -- împărțire
-                RESULT <= std_logic_vector(resize(div_out, 2*N));  
-            when others =>
-                RESULT <= (others => '0');
-        end case;
-    end process;
+    RESULT <= result_reg;
 
 end Behavioral;

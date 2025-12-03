@@ -25,13 +25,13 @@ set_property KEEP_HIERARCHY SOFT [get_cells -hier -filter {REF_NAME==design_alu_
 # IP: bd/design_alu/ip/design_alu_xbar_0/design_alu_xbar_0.xci
 set_property KEEP_HIERARCHY SOFT [get_cells -hier -filter {REF_NAME==design_alu_xbar_0 || ORIG_REF_NAME==design_alu_xbar_0} -quiet] -quiet
 
-# IP: bd/design_alu/ip/design_alu_auto_pc_0/design_alu_auto_pc_0.xci
-set_property KEEP_HIERARCHY SOFT [get_cells -hier -filter {REF_NAME==design_alu_auto_pc_0 || ORIG_REF_NAME==design_alu_auto_pc_0} -quiet] -quiet
-
 # IP: bd/design_alu/ip/design_alu_ps7_0_axi_periph_0/design_alu_ps7_0_axi_periph_0.xci
 set_property KEEP_HIERARCHY SOFT [get_cells -hier -filter {REF_NAME==design_alu_ps7_0_axi_periph_0 || ORIG_REF_NAME==design_alu_ps7_0_axi_periph_0} -quiet] -quiet
 
 # IP: bd/design_alu/ip/design_alu_rst_ps7_0_50M_0/design_alu_rst_ps7_0_50M_0.xci
 set_property KEEP_HIERARCHY SOFT [get_cells -hier -filter {REF_NAME==design_alu_rst_ps7_0_50M_0 || ORIG_REF_NAME==design_alu_rst_ps7_0_50M_0} -quiet] -quiet
+
+# IP: bd/design_alu/ip/design_alu_auto_pc_0/design_alu_auto_pc_0.xci
+set_property KEEP_HIERARCHY SOFT [get_cells -hier -filter {REF_NAME==design_alu_auto_pc_0 || ORIG_REF_NAME==design_alu_auto_pc_0} -quiet] -quiet
 
 # XDC: d:/laborator/ALU_project/ALU_project.gen/sources_1/bd/design_alu/design_alu_ooc.xdc

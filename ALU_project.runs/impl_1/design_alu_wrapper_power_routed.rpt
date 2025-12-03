@@ -1,7 +1,7 @@
 Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 | Tool Version     : Vivado v.2024.1 (win64) Build 5076996 Wed May 22 18:37:14 MDT 2024
-| Date             : Wed Nov 19 00:11:27 2025
+| Date             : Wed Dec  3 15:35:04 2025
 | Host             : alina running 64-bit major release  (build 9200)
 | Command          : report_power -file design_alu_wrapper_power_routed.rpt -pb design_alu_wrapper_power_summary_routed.pb -rpx design_alu_wrapper_power_routed.rpx
 | Design           : design_alu_wrapper
@@ -30,7 +30,7 @@ Table of Contents
 ----------
 
 +--------------------------+--------------+
-| Total On-Chip Power (W)  | 1.541        |
+| Total On-Chip Power (W)  | 1.540        |
 | Design Power Budget (W)  | Unspecified* |
 | Power Budget Margin (W)  | NA           |
 | Dynamic (W)              | 1.403        |
@@ -53,16 +53,16 @@ Table of Contents
 | On-Chip                 | Power (W) | Used     | Available | Utilization (%) |
 +-------------------------+-----------+----------+-----------+-----------------+
 | Clocks                  |     0.002 |        3 |       --- |             --- |
-| Slice Logic             |     0.001 |     2731 |       --- |             --- |
-|   LUT as Logic          |    <0.001 |     1088 |     53200 |            2.05 |
-|   CARRY4                |    <0.001 |       79 |     13300 |            0.59 |
-|   Register              |    <0.001 |     1028 |    106400 |            0.97 |
+| Slice Logic             |    <0.001 |     2671 |       --- |             --- |
+|   LUT as Logic          |    <0.001 |      994 |     53200 |            1.87 |
+|   Register              |    <0.001 |     1083 |    106400 |            1.02 |
+|   CARRY4                |    <0.001 |       63 |     13300 |            0.47 |
 |   LUT as Shift Register |    <0.001 |       62 |     17400 |            0.36 |
-|   Others                |     0.000 |      225 |       --- |             --- |
-| Signals                 |     0.001 |     2062 |       --- |             --- |
+|   Others                |     0.000 |      227 |       --- |             --- |
+| Signals                 |    <0.001 |     2005 |       --- |             --- |
 | PS7                     |     1.399 |        1 |       --- |             --- |
 | Static Power            |     0.137 |          |           |                 |
-| Total                   |     1.541 |          |           |                 |
+| Total                   |     1.540 |          |           |                 |
 +-------------------------+-----------+----------+-----------+-----------------+
 
 
@@ -72,7 +72,7 @@ Table of Contents
 +-----------+-------------+-----------+-------------+------------+-------------+-------------+------------+
 | Source    | Voltage (V) | Total (A) | Dynamic (A) | Static (A) | Powerup (A) | Budget (A)  | Margin (A) |
 +-----------+-------------+-----------+-------------+------------+-------------+-------------+------------+
-| Vccint    |       1.000 |     0.018 |       0.005 |      0.014 |       NA    | Unspecified | NA         |
+| Vccint    |       1.000 |     0.018 |       0.004 |      0.014 |       NA    | Unspecified | NA         |
 | Vccaux    |       1.800 |     0.015 |       0.000 |      0.015 |       NA    | Unspecified | NA         |
 | Vcco33    |       3.300 |     0.000 |       0.000 |      0.000 |       NA    | Unspecified | NA         |
 | Vcco25    |       2.500 |     0.000 |       0.000 |      0.000 |       NA    | Unspecified | NA         |

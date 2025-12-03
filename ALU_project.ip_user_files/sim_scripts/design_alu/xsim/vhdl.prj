@@ -1,0 +1,9 @@
+vhdl xil_defaultlib  \
+"../../../bd/design_alu/ip/design_alu_axi_gpio_0_0/sim/design_alu_axi_gpio_0_0.vhd" \
+"../../../bd/design_alu/ip/design_alu_axi_gpio_1_0/sim/design_alu_axi_gpio_1_0.vhd" \
+"../../../bd/design_alu/ip/design_alu_axi_gpio_2_0/sim/design_alu_axi_gpio_2_0.vhd" \
+"../../../bd/design_alu/ip/design_alu_axi_gpio_3_0/sim/design_alu_axi_gpio_3_0.vhd" \
+"../../../bd/design_alu/ip/design_alu_rst_ps7_0_50M_0/sim/design_alu_rst_ps7_0_50M_0.vhd" \
+
+# Do not sort compile order
+nosort

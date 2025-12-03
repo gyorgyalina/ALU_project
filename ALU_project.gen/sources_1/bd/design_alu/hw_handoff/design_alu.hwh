@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
-<EDKSYSTEM EDWVERSION="1.2" TIMESTAMP="Wed Nov 19 00:07:35 2025" VIVADOVERSION="2024.1">
+<EDKSYSTEM EDWVERSION="1.2" TIMESTAMP="Wed Dec  3 15:31:32 2025" VIVADOVERSION="2024.1">
 
   <SYSTEMINFO ARCH="zynq" BOARD="digilentinc.com:zybo-z7-20:part0:1.2" DEVICE="7z020" NAME="design_alu" PACKAGE="clg400" SPEEDGRADE="-1"/>
 
@@ -69,7 +69,7 @@
         <CONNECTION INSTANCE="processing_system7_0" PORT="DDR_RAS_n"/>
       </CONNECTIONS>
     </PORT>
-    <PORT DIR="IO" NAME="DDR_reset_n" POLARITY="ACTIVE_LOW" SIGIS="rst" SIGNAME="processing_system7_0_DDR_DRSTB">
+    <PORT DIR="IO" NAME="DDR_reset_n" SIGIS="rst" SIGNAME="processing_system7_0_DDR_DRSTB">
       <CONNECTIONS>
         <CONNECTION INSTANCE="processing_system7_0" PORT="DDR_DRSTB"/>
       </CONNECTIONS>
@@ -182,9 +182,19 @@
             <CONNECTION INSTANCE="axi_gpio_RESULT" PORT="gpio_io_i"/>
           </CONNECTIONS>
         </PORT>
+        <PORT CLKFREQUENCY="50000000" DIR="I" NAME="clk" SIGIS="clk" SIGNAME="processing_system7_0_FCLK_CLK0">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="processing_system7_0" PORT="FCLK_CLK0"/>
+          </CONNECTIONS>
+        </PORT>
         <PORT DIR="I" LEFT="1" NAME="opcode" RIGHT="0" SIGIS="undef" SIGNAME="axi_gpio_opcode_gpio_io_o">
           <CONNECTIONS>
             <CONNECTION INSTANCE="axi_gpio_opcode" PORT="gpio_io_o"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" NAME="reset" POLARITY="ACTIVE_HIGH" SIGIS="rst" SIGNAME="rst_ps7_0_50M_peripheral_reset">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="rst_ps7_0_50M" PORT="peripheral_reset"/>
           </CONNECTIONS>
         </PORT>
       </PORTS>
@@ -2655,6 +2665,7 @@
             <CONNECTION INSTANCE="ps7_0_axi_periph" PORT="M02_ACLK"/>
             <CONNECTION INSTANCE="axi_gpio_RESULT" PORT="s_axi_aclk"/>
             <CONNECTION INSTANCE="ps7_0_axi_periph" PORT="M03_ACLK"/>
+            <CONNECTION INSTANCE="ALU_0" PORT="clk"/>
           </CONNECTIONS>
         </PORT>
         <PORT DIR="O" NAME="FCLK_RESET0_N" POLARITY="ACTIVE_LOW" SIGIS="rst" SIGNAME="processing_system7_0_FCLK_RESET0_N">
@@ -4108,7 +4119,11 @@
             <CONNECTION INSTANCE="ps7_0_axi_periph" PORT="M03_ARESETN"/>
           </CONNECTIONS>
         </PORT>
-        <PORT DIR="O" LEFT="0" NAME="peripheral_reset" POLARITY="ACTIVE_HIGH" RIGHT="0" SIGIS="rst"/>
+        <PORT DIR="O" LEFT="0" NAME="peripheral_reset" POLARITY="ACTIVE_HIGH" RIGHT="0" SIGIS="rst" SIGNAME="rst_ps7_0_50M_peripheral_reset">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="ALU_0" PORT="reset"/>
+          </CONNECTIONS>
+        </PORT>
         <PORT CLKFREQUENCY="50000000" DIR="I" NAME="slowest_sync_clk" SIGIS="clk" SIGNAME="processing_system7_0_FCLK_CLK0">
           <CONNECTIONS>
             <CONNECTION INSTANCE="processing_system7_0" PORT="FCLK_CLK0"/>

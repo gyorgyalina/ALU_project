@@ -1,0 +1,3 @@
+D:/laborator/ALU_project/ALU_platform_v3/zynq_fsbl/build/CMakeFiles/fsbl.elf.dir
+D:/laborator/ALU_project/ALU_platform_v3/zynq_fsbl/build/CMakeFiles/edit_cache.dir
+D:/laborator/ALU_project/ALU_platform_v3/zynq_fsbl/build/CMakeFiles/rebuild_cache.dir

@@ -1,25 +1,10 @@
 <?xml version="1.0"?>
 <ProcessHandle Version="1" Minor="0">
-    <Process Command="vivado.bat" Owner="alina" Host="ALINA" Pid="12436" HostCore="16" HostMemory="033677774848">
+    <Process Command="vivado.bat" Owner="alina" Host="ALINA" Pid="11848" HostCore="16" HostMemory="033677774848">
     </Process>
 </ProcessHandle>
 <?xml version="1.0"?>
 <ProcessHandle Version="1" Minor="0">
-    <Process Command="vivado.bat" Owner="alina" Host="ALINA" Pid="25076" HostCore="16" HostMemory="033677774848">
-    </Process>
-</ProcessHandle>
-<?xml version="1.0"?>
-<ProcessHandle Version="1" Minor="0">
-    <Process Command="vivado.bat" Owner="alina" Host="ALINA" Pid="11984" HostCore="16" HostMemory="033677774848">
-    </Process>
-</ProcessHandle>
-<?xml version="1.0"?>
-<ProcessHandle Version="1" Minor="0">
-    <Process Command="vivado.bat" Owner="alina" Host="ALINA" Pid="20544" HostCore="16" HostMemory="033677774848">
-    </Process>
-</ProcessHandle>
-<?xml version="1.0"?>
-<ProcessHandle Version="1" Minor="0">
-    <Process Command="vivado.bat" Owner="alina" Host="ALINA" Pid="26800" HostCore="16" HostMemory="033677774848">
+    <Process Command="vivado.bat" Owner="alina" Host="ALINA" Pid="23264" HostCore="16" HostMemory="033677774848">
     </Process>
 </ProcessHandle>

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<GenRun Id="synth_1" LaunchPart="xc7z020clg400-1" LaunchTime="1763503659" LaunchIncrCheckpoint="$PSRCDIR/utils_1/imports/synth_1/ALU.dcp">
+<GenRun Id="synth_1" LaunchPart="xc7z020clg400-1" LaunchTime="1764768815" LaunchIncrCheckpoint="$PSRCDIR/utils_1/imports/synth_1/ALU.dcp">
   <File Type="PA-TCL" Name="design_alu_wrapper.tcl"/>
   <File Type="RDS-PROPCONSTRS" Name="design_alu_wrapper_drc_synth.rpt"/>
   <File Type="REPORTS-TCL" Name="design_alu_wrapper_reports.tcl"/>
@@ -18,6 +18,12 @@
       </FileInfo>
     </File>
     <File Path="$PSRCDIR/sources_1/new/csa.vhd">
+      <FileInfo>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PSRCDIR/sources_1/new/divider.vhd">
       <FileInfo>
         <Attr Name="UsedIn" Val="synthesis"/>
         <Attr Name="UsedIn" Val="simulation"/>
@@ -44,6 +50,14 @@
     </File>
     <File Path="$PGENDIR/sources_1/bd/design_alu/hdl/design_alu_wrapper.v">
       <FileInfo>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PSRCDIR/sources_1/bd/design_alu_v2/design_alu_v2.bd">
+      <FileInfo>
+        <Attr Name="AutoDisabled" Val="1"/>
         <Attr Name="UsedIn" Val="synthesis"/>
         <Attr Name="UsedIn" Val="implementation"/>
         <Attr Name="UsedIn" Val="simulation"/>
@@ -78,11 +92,10 @@
     <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2024"/>
     <Step Id="synth_design"/>
   </Strategy>
-  <BlockFileSet Type="BlockSrcs" Name="design_alu_auto_pc_0"/>
   <BlockFileSet Type="BlockSrcs" Name="design_alu_axi_gpio_2_0"/>
+  <BlockFileSet Type="BlockSrcs" Name="design_alu_ALU_0_1"/>
   <BlockFileSet Type="BlockSrcs" Name="design_alu_rst_ps7_0_50M_0"/>
   <BlockFileSet Type="BlockSrcs" Name="design_alu_axi_gpio_3_0"/>
-  <BlockFileSet Type="BlockSrcs" Name="design_alu_ALU_0_1"/>
   <BlockFileSet Type="BlockSrcs" Name="design_alu_xbar_0"/>
   <BlockFileSet Type="BlockSrcs" Name="design_alu_processing_system7_0_0"/>
   <BlockFileSet Type="BlockSrcs" Name="design_alu_axi_gpio_0_0"/>

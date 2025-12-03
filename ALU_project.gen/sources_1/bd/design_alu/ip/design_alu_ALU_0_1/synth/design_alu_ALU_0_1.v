@@ -56,12 +56,20 @@
 (* IP_DEFINITION_SOURCE = "module_ref" *)
 (* DowngradeIPIdentifiedWarnings = "yes" *)
 module design_alu_ALU_0_1 (
+  clk,
+  reset,
   A,
   B,
   opcode,
   RESULT
 );
 
+(* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME clk, ASSOCIATED_RESET reset, FREQ_HZ 50000000, FREQ_TOLERANCE_HZ 0, PHASE 0.0, CLK_DOMAIN design_alu_processing_system7_0_0_FCLK_CLK0, INSERT_VIP 0" *)
+(* X_INTERFACE_INFO = "xilinx.com:signal:clock:1.0 clk CLK" *)
+input wire clk;
+(* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME reset, POLARITY ACTIVE_HIGH, INSERT_VIP 0" *)
+(* X_INTERFACE_INFO = "xilinx.com:signal:reset:1.0 reset RST" *)
+input wire reset;
 input wire [7 : 0] A;
 input wire [7 : 0] B;
 input wire [1 : 0] opcode;
@@ -70,6 +78,8 @@ output wire [15 : 0] RESULT;
   ALU #(
     .N(8)
   ) inst (
+    .clk(clk),
+    .reset(reset),
     .A(A),
     .B(B),
     .opcode(opcode),

@@ -1,0 +1,11 @@
+verilog xil_defaultlib --include "D:/vivado/Vivado/2024.1/data/xilinx_vip/include" --include "../../../../ALU_project.gen/sources_1/bd/design_alu/ipshared/ec67/hdl" --include "../../../../ALU_project.gen/sources_1/bd/design_alu/ipshared/b28c/hdl" \
+"../../../bd/design_alu/ip/design_alu_processing_system7_0_0/sim/design_alu_processing_system7_0_0.v" \
+"../../../bd/design_alu/ip/design_alu_ALU_0_1/sim/design_alu_ALU_0_1.v" \
+"../../../bd/design_alu/ip/design_alu_xbar_0/sim/design_alu_xbar_0.v" \
+"../../../bd/design_alu/ip/design_alu_auto_pc_0/sim/design_alu_auto_pc_0.v" \
+"../../../bd/design_alu/sim/design_alu.v" \
+
+verilog xil_defaultlib "glbl.v"
+
+# Do not sort compile order
+nosort

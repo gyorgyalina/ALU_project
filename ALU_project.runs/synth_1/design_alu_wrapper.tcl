@@ -69,12 +69,13 @@ set_property parent.project_path D:/laborator/ALU_project/ALU_project.xpr [curre
 set_property XPM_LIBRARIES {XPM_CDC XPM_MEMORY} [current_project]
 set_property default_lib xil_defaultlib [current_project]
 set_property target_language Verilog [current_project]
+set_property board_part_repo_paths {D:/laborator/laborator9/Lab9/Hardware/boards} [current_project]
 set_property board_part digilentinc.com:zybo-z7-20:part0:1.2 [current_project]
 set_property ip_output_repo d:/laborator/ALU_project/ALU_project.cache/ip [current_project]
 set_property ip_cache_permissions {read write} [current_project]
 OPTRACE "Creating in-memory project" END { }
 OPTRACE "Adding files" START { }
-read_verilog -library xil_defaultlib d:/laborator/ALU_project/ALU_project.gen/sources_1/bd/design_alu/hdl/design_alu_wrapper.v
+read_verilog -library xil_defaultlib D:/laborator/ALU_project/ALU_project.gen/sources_1/bd/design_alu/hdl/design_alu_wrapper.v
 add_files D:/laborator/ALU_project/ALU_project.srcs/sources_1/bd/design_alu/design_alu.bd
 set_property used_in_implementation false [get_files -all d:/laborator/ALU_project/ALU_project.gen/sources_1/bd/design_alu/ip/design_alu_processing_system7_0_0/design_alu_processing_system7_0_0.xdc]
 set_property used_in_implementation false [get_files -all d:/laborator/ALU_project/ALU_project.gen/sources_1/bd/design_alu/ip/design_alu_axi_gpio_0_0/design_alu_axi_gpio_0_0_board.xdc]
@@ -90,10 +91,10 @@ set_property used_in_implementation false [get_files -all d:/laborator/ALU_proje
 set_property used_in_implementation false [get_files -all d:/laborator/ALU_project/ALU_project.gen/sources_1/bd/design_alu/ip/design_alu_axi_gpio_3_0/design_alu_axi_gpio_3_0_ooc.xdc]
 set_property used_in_implementation false [get_files -all d:/laborator/ALU_project/ALU_project.gen/sources_1/bd/design_alu/ip/design_alu_axi_gpio_3_0/design_alu_axi_gpio_3_0.xdc]
 set_property used_in_implementation false [get_files -all d:/laborator/ALU_project/ALU_project.gen/sources_1/bd/design_alu/ip/design_alu_xbar_0/design_alu_xbar_0_ooc.xdc]
-set_property used_in_implementation false [get_files -all d:/laborator/ALU_project/ALU_project.gen/sources_1/bd/design_alu/ip/design_alu_auto_pc_0/design_alu_auto_pc_0_ooc.xdc]
 set_property used_in_implementation false [get_files -all d:/laborator/ALU_project/ALU_project.gen/sources_1/bd/design_alu/ip/design_alu_rst_ps7_0_50M_0/design_alu_rst_ps7_0_50M_0_board.xdc]
 set_property used_in_implementation false [get_files -all d:/laborator/ALU_project/ALU_project.gen/sources_1/bd/design_alu/ip/design_alu_rst_ps7_0_50M_0/design_alu_rst_ps7_0_50M_0.xdc]
 set_property used_in_implementation false [get_files -all d:/laborator/ALU_project/ALU_project.gen/sources_1/bd/design_alu/ip/design_alu_rst_ps7_0_50M_0/design_alu_rst_ps7_0_50M_0_ooc.xdc]
+set_property used_in_implementation false [get_files -all d:/laborator/ALU_project/ALU_project.gen/sources_1/bd/design_alu/ip/design_alu_auto_pc_0/design_alu_auto_pc_0_ooc.xdc]
 set_property used_in_implementation false [get_files -all d:/laborator/ALU_project/ALU_project.gen/sources_1/bd/design_alu/design_alu_ooc.xdc]
 
 OPTRACE "Adding files" END { }

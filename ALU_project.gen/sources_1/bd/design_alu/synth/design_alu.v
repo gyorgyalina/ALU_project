@@ -2,7 +2,7 @@
 //Copyright 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
 //--------------------------------------------------------------------------------
 //Tool Version: Vivado v.2024.1 (win64) Build 5076996 Wed May 22 18:37:14 MDT 2024
-//Date        : Wed Nov 19 00:07:22 2025
+//Date        : Wed Dec  3 15:31:31 2025
 //Host        : alina running 64-bit major release  (build 9200)
 //Command     : generate_target design_alu.bd
 //Design      : design_alu
@@ -189,12 +189,15 @@ module design_alu
   wire [3:0]ps7_0_axi_periph_M03_AXI_WSTRB;
   wire [0:0]ps7_0_axi_periph_M03_AXI_WVALID;
   wire [0:0]rst_ps7_0_50M_peripheral_aresetn;
+  wire [0:0]rst_ps7_0_50M_peripheral_reset;
 
   design_alu_ALU_0_1 ALU_0
        (.A(axi_gpio_A_gpio_io_o),
         .B(axi_gpio_B_gpio_io_o),
         .RESULT(ALU_0_RESULT),
-        .opcode(axi_gpio_opcode_gpio_io_o));
+        .clk(processing_system7_0_FCLK_CLK0),
+        .opcode(axi_gpio_opcode_gpio_io_o),
+        .reset(rst_ps7_0_50M_peripheral_reset));
   design_alu_axi_gpio_0_0 axi_gpio_A
        (.gpio_io_o(axi_gpio_A_gpio_io_o),
         .s_axi_aclk(processing_system7_0_FCLK_CLK0),
@@ -468,6 +471,7 @@ module design_alu
         .ext_reset_in(processing_system7_0_FCLK_RESET0_N),
         .mb_debug_sys_rst(1'b0),
         .peripheral_aresetn(rst_ps7_0_50M_peripheral_aresetn),
+        .peripheral_reset(rst_ps7_0_50M_peripheral_reset),
         .slowest_sync_clk(processing_system7_0_FCLK_CLK0));
 endmodule
 
