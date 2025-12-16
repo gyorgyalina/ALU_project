@@ -30,6 +30,9 @@ architecture Behavioral of ALU is
     signal start_div : std_logic; 
     
     signal result_reg : std_logic_vector(2*N-1 downto 0);
+    
+    signal A_abs, B_abs : std_logic_vector(N-1 downto 0);
+    signal Q_sign : std_logic;
 
 
     component csa
@@ -76,9 +79,31 @@ begin
     C_in_csa <= '1' when opcode = "01" else '0'; 
     
     with opcode select
-        B_inv <= B        when "00", -- ADD: B
-                 not B    when "01", -- SUB: NOT B
+        B_inv <= B        when "00", 
+                 not B    when "01", 
                  B        when others;
+                 
+                 
+    process(A, B)
+begin
+    if A(N-1) /= B(N-1) then
+        Q_sign <= '1'; -- Rezultat negativ (Q)
+    else
+        Q_sign <= '0'; -- Rezultat pozitiv (Q)
+    end if;
+
+    if A(N-1) = '1' then
+        A_abs <= std_logic_vector(to_signed(0, N) - signed(A)); -- |A| = -A
+    else
+        A_abs <= A;
+    end if;
+    
+    if B(N-1) = '1' then
+        B_abs <= std_logic_vector(to_signed(0, N) - signed(B)); -- |B| = -B
+    else
+        B_abs <= B;
+    end if;
+end process;
     
     csa_inst : csa
       generic map(N => N, BLOC => 4)
@@ -119,8 +144,8 @@ begin
         clk   => clk,
         reset => reset,
         start => start_div, 
-        A     => A,
-        B     => B,
+        A     => A_abs,
+        B     => B_abs,
         Q     => div_out,
         R     => open,
         busy  => div_busy,
@@ -138,18 +163,24 @@ begin
 
                 when "00" | "01" =>  -- ADD / SUB
                     result_reg <= std_logic_vector(
-                                      resize(signed(SUM_out), 2*N)
+                                        resize(signed(SUM_out(N-1 downto 0)), 2*N)
                                     );
 
                 when "10" =>  -- MUL
                     result_reg <= mult_out;
 
-                when "11" =>  -- DIV
+               when "11" =>  -- DIV
                     if div_ready = '1' then
+                         if Q_sign = '1' then
+                            result_reg <= std_logic_vector(
+                                resize(to_signed(0, N) - signed(unsigned(div_out)), 2*N)
+                          );
+                    else
                         result_reg <= std_logic_vector(
-                                          resize(unsigned(div_out), 2*N)
-                                        );
-                    end if;
+                              resize(unsigned(div_out), 2*N)
+                          );
+        end if;
+    end if;
 
                 when others =>
                     result_reg <= (others=>'0');

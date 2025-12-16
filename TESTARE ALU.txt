@@ -1,4 +1,4 @@
-TESTARE ALU 
+TESTARE ALU varianta2
 	A		B		op		result
 	2		3		0		   5
 	10		2		2		  20
@@ -7,4 +7,30 @@ TESTARE ALU
 	4		2		3		 128
 	5		3		1		65282
 	10		-5		3		   0
-	6 		3		3		128
+	6 		3		3		 128
+	-4		-4		2		  16
+	-4		-4		0		65528
+	-4		-4		3		  64
+	-4		-4		1		65280
+
+TESTARE ALU varianta3
+	A		B		op		result
+	5		7		1		254
+	-2		-2		0		65532
+	4		-2		0		65282
+	-4		-4		3		  64
+
+TESTARE ALU varianta4
+	A		B		op		result
+	2		-1		 0		    1
+	2		-1		 1		    3
+	2		-1		 2		65534 (0xFFFE)
+	2		-1		 3		65408 (0xFF80)
+	6		 3		 3		128
+	11		36		1		65511
+
+
+
+		
+
+
