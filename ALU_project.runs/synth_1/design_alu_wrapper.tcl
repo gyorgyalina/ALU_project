@@ -95,6 +95,9 @@ set_property used_in_implementation false [get_files -all d:/laborator/ALU_proje
 set_property used_in_implementation false [get_files -all d:/laborator/ALU_project/ALU_project.gen/sources_1/bd/design_alu/ip/design_alu_rst_ps7_0_50M_0/design_alu_rst_ps7_0_50M_0.xdc]
 set_property used_in_implementation false [get_files -all d:/laborator/ALU_project/ALU_project.gen/sources_1/bd/design_alu/ip/design_alu_rst_ps7_0_50M_0/design_alu_rst_ps7_0_50M_0_ooc.xdc]
 set_property used_in_implementation false [get_files -all d:/laborator/ALU_project/ALU_project.gen/sources_1/bd/design_alu/ip/design_alu_auto_pc_0/design_alu_auto_pc_0_ooc.xdc]
+set_property used_in_implementation false [get_files -all d:/laborator/ALU_project/ALU_project.gen/sources_1/bd/design_alu/ip/design_alu_axi_gpio_0_1/design_alu_axi_gpio_0_1_board.xdc]
+set_property used_in_implementation false [get_files -all d:/laborator/ALU_project/ALU_project.gen/sources_1/bd/design_alu/ip/design_alu_axi_gpio_0_1/design_alu_axi_gpio_0_1_ooc.xdc]
+set_property used_in_implementation false [get_files -all d:/laborator/ALU_project/ALU_project.gen/sources_1/bd/design_alu/ip/design_alu_axi_gpio_0_1/design_alu_axi_gpio_0_1.xdc]
 set_property used_in_implementation false [get_files -all d:/laborator/ALU_project/ALU_project.gen/sources_1/bd/design_alu/design_alu_ooc.xdc]
 
 OPTRACE "Adding files" END { }

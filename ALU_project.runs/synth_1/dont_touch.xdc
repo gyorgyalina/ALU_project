@@ -34,4 +34,7 @@ set_property KEEP_HIERARCHY SOFT [get_cells -hier -filter {REF_NAME==design_alu_
 # IP: bd/design_alu/ip/design_alu_auto_pc_0/design_alu_auto_pc_0.xci
 set_property KEEP_HIERARCHY SOFT [get_cells -hier -filter {REF_NAME==design_alu_auto_pc_0 || ORIG_REF_NAME==design_alu_auto_pc_0} -quiet] -quiet
 
+# IP: bd/design_alu/ip/design_alu_axi_gpio_0_1/design_alu_axi_gpio_0_1.xci
+set_property KEEP_HIERARCHY SOFT [get_cells -hier -filter {REF_NAME==design_alu_axi_gpio_0_1 || ORIG_REF_NAME==design_alu_axi_gpio_0_1} -quiet] -quiet
+
 # XDC: d:/laborator/ALU_project/ALU_project.gen/sources_1/bd/design_alu/design_alu_ooc.xdc

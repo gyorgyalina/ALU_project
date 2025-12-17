@@ -12,7 +12,8 @@ entity ALU is
     A      : in  std_logic_vector(N-1 downto 0);
     B      : in  std_logic_vector(N-1 downto 0);
     opcode : in  std_logic_vector(1 downto 0);        
-    RESULT : out std_logic_vector(2*N-1 downto 0)    
+    RESULT : out std_logic_vector(2*N-1 downto 0) ;
+    status_out : out std_logic_vector(1 downto 0) 
   );
 end ALU;
 
@@ -33,7 +34,7 @@ architecture Behavioral of ALU is
     
     signal A_abs, B_abs : std_logic_vector(N-1 downto 0);
     signal Q_sign : std_logic;
-
+    
 
     component csa
       generic(
@@ -75,7 +76,6 @@ architecture Behavioral of ALU is
 begin
     
     
-    
     C_in_csa <= '1' when opcode = "01" else '0'; 
     
     with opcode select
@@ -87,9 +87,9 @@ begin
     process(A, B)
 begin
     if A(N-1) /= B(N-1) then
-        Q_sign <= '1'; -- Rezultat negativ (Q)
+        Q_sign <= '1'; 
     else
-        Q_sign <= '0'; -- Rezultat pozitiv (Q)
+        Q_sign <= '0'; 
     end if;
 
     if A(N-1) = '1' then
@@ -154,39 +154,40 @@ end process;
 
     process(clk, reset)
     begin
-        if reset='1' then
-            result_reg <= (others=>'0');
-
+        if reset = '1' then
+            result_reg <= (others => '0');
         elsif rising_edge(clk) then
-
             case opcode is
-
-                when "00" | "01" =>  -- ADD / SUB
-                    result_reg <= std_logic_vector(
-                                        resize(signed(SUM_out(N-1 downto 0)), 2*N)
-                                    );
-
-                when "10" =>  -- MUL
+                when "00" | "01" =>
+                    result_reg <= std_logic_vector(resize(signed(SUM_out(N-1 downto 0)), 2*N));
+                
+                when "10" =>
                     result_reg <= mult_out;
 
-               when "11" =>  -- DIV
+                when "11" =>
                     if div_ready = '1' then
-                         if Q_sign = '1' then
-                            result_reg <= std_logic_vector(
-                                resize(to_signed(0, N) - signed(unsigned(div_out)), 2*N)
-                          );
-                    else
-                        result_reg <= std_logic_vector(
-                              resize(unsigned(div_out), 2*N)
-                          );
-        end if;
-    end if;
-
+                        if Q_sign = '1' then
+                            result_reg <= std_logic_vector(resize(0 - signed(div_out), 2*N));
+                        else
+                            result_reg <= std_logic_vector(resize(unsigned(div_out), 2*N));
+                        end if;
+                    end if;
                 when others =>
-                    result_reg <= (others=>'0');
-
+                    result_reg <= (others => '0');
             end case;
-
+        end if;
+    end process;
+    
+    status_out(0) <= start_div or div_busy; 
+    
+    process(clk)
+    begin
+        if rising_edge(clk) then
+            if opcode = "11" then
+                status_out(1) <= div_ready; 
+            else
+                status_out(1) <= '1';       
+            end if;
         end if;
     end process;
 

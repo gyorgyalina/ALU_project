@@ -3,8 +3,8 @@
 # SW Build 5076996 on Wed May 22 18:37:14 MDT 2024
 # IP Build 5075265 on Wed May 22 21:45:21 MDT 2024
 # SharedData Build 5076995 on Wed May 22 18:29:18 MDT 2024
-# Start of session at: Mon Dec 15 15:32:53 2025
-# Process ID: 15876
+# Start of session at: Wed Dec 17 13:07:57 2025
+# Process ID: 22848
 # Current directory: D:/laborator/ALU_project/ALU_project.runs/design_alu_ALU_0_1_synth_1
 # Command line: vivado.exe -log design_alu_ALU_0_1.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source design_alu_ALU_0_1.tcl
 # Log file: D:/laborator/ALU_project/ALU_project.runs/design_alu_ALU_0_1_synth_1/design_alu_ALU_0_1.vds
@@ -19,6 +19,6 @@
 # Host memory       :33677 MB
 # Swap memory       :7516 MB
 # Total Virtual     :41193 MB
-# Available Virtual :11104 MB
+# Available Virtual :9726 MB
 #-----------------------------------------------------------
 source design_alu_ALU_0_1.tcl -notrace

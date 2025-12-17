@@ -2,7 +2,7 @@
 //Copyright 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
 //--------------------------------------------------------------------------------
 //Tool Version: Vivado v.2024.1 (win64) Build 5076996 Wed May 22 18:37:14 MDT 2024
-//Date        : Mon Dec 15 14:28:23 2025
+//Date        : Wed Dec 17 13:07:52 2025
 //Host        : alina running 64-bit major release  (build 9200)
 //Command     : generate_target design_alu.bd
 //Design      : design_alu

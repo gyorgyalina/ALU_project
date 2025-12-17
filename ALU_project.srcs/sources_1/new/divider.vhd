@@ -10,82 +10,70 @@ entity divider is
         clk   : in  std_logic;
         reset : in  std_logic;
         start : in  std_logic;
-
-        A : in  std_logic_vector(N-1 downto 0);
-        B : in  std_logic_vector(N-1 downto 0);
-
-        Q : out std_logic_vector(N-1 downto 0);
-        R : out std_logic_vector(N-1 downto 0);
-
+        A     : in  std_logic_vector(N-1 downto 0);
+        B     : in  std_logic_vector(N-1 downto 0);
+        Q     : out std_logic_vector(N-1 downto 0);
+        R     : out std_logic_vector(N-1 downto 0);
         busy  : out std_logic;
         ready : out std_logic
     );
 end divider;
 
 architecture Behavioral of divider is
-
-    signal remainder : std_logic_vector(N downto 0);  
-    signal divisor   : std_logic_vector(N-1 downto 0);
-    signal quotient  : std_logic_vector(N-1 downto 0);
-
-    signal counter   : std_logic_vector(N-1 downto 0);
-    signal state     : std_logic; -- '0' = idle, '1' = run
-
+    signal reg_Q    : std_logic_vector(N-1 downto 0);
+    signal reg_R    : std_logic_vector(N downto 0);
+    signal reg_B    : std_logic_vector(N-1 downto 0);
+    signal counter  : integer range 0 to N;
+    signal running  : std_logic := '0';
 begin
 
     process(clk, reset)
+        variable v_R : unsigned(N downto 0);
     begin
-        if reset='1' then
-            busy   <= '0';
-            ready  <= '0';
-            state  <= '0';
-            quotient <= (others => '0');
-            remainder <= (others => '0');
-            counter <= (others => '0');
-
+        if reset = '1' then
+            reg_Q <= (others => '0');
+            reg_R <= (others => '0');
+            reg_B <= (others => '0');
+            counter <= 0;
+            busy <= '0';
+            ready <= '0';
+            running <= '0';
         elsif rising_edge(clk) then
-
-            case state is
-
-                when '0' =>
-                    ready <= '0';
-
-                    if start='1' and B /= (B'range => '0') then
+            ready <= '0';
+            if running = '0' then
+                if start = '1' then
+                    if B /= (B'range => '0') then
+                        reg_Q <= A;
+                        reg_R <= (others => '0');
+                        reg_B <= B;
+                        counter <= N;
                         busy <= '1';
-                        state <= '1';
-
-                        quotient  <= (others => '0');
-                        remainder <= '0' & A;
-                        divisor   <= B;
-
-                        counter <= std_logic_vector(to_unsigned(N, N));
+                        running <= '1';
                     end if;
+                end if;
+            else
+                v_R := unsigned(reg_R(N-1 downto 0) & reg_Q(N-1));
+                
+                if v_R >= unsigned(reg_B) then
+                    reg_R <= std_logic_vector(v_R - unsigned(reg_B));
+                    reg_Q <= reg_Q(N-2 downto 0) & '1';
+                else
+                    reg_R <= std_logic_vector(v_R);
+                    reg_Q <= reg_Q(N-2 downto 0) & '0';
+                end if;
 
-                when '1' =>
-
-                    remainder <= remainder(N-1 downto 0) & '0';
-
-                    if unsigned(remainder(N downto 1)) >= unsigned(divisor) then
-                        remainder(N downto 1) <= std_logic_vector(unsigned(remainder(N downto 1)) - unsigned(divisor));
-                        quotient <= quotient(quotient'left-1 downto 0) & '1';
-                    else
-                        quotient <= quotient(quotient'left-1 downto 0) & '0';
-                    end if;
-
-                    counter <= std_logic_vector(unsigned(counter) - 1);
-
-                    if unsigned(counter) = 1 then
-                        state <= '0';
-                        busy  <= '0';
-                        ready <= '1';
-                    end if;
-
-            end case;
-
+                if counter = 1 then
+                    running <= '0';
+                    busy <= '0';
+                    ready <= '1';
+                else
+                    counter <= counter - 1;
+                end if;
+            end if;
         end if;
     end process;
 
-    Q <= quotient;
-    R <= remainder(N downto 1);
+    Q <= reg_Q;
+    R <= reg_R(N-1 downto 0);
 
 end Behavioral;
